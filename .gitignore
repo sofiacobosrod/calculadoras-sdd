@@ -1,0 +1,20 @@
+# ============================================================
+# .gitignore = lista de archivos que Git NO debe guardar ni subir.
+# El * significa "cualquier cosa". Las líneas con # son comentarios.
+# ============================================================
+
+# --- Python: se crea sola al ejecutar el código ---
+__pycache__/
+*.pyc
+venv/
+.venv/
+
+# --- Java: se crean al compilar con javac ---
+*.class
+
+# --- Secretos: contraseñas y claves NUNCA se suben ---
+.env
+
+# --- Archivos del sistema operativo ---
+Thumbs.db
+.DS_Store
