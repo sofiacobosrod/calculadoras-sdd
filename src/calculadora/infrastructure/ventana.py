@@ -7,9 +7,12 @@ from src.calculadora.infrastructure.configuracion_botones import (
 
 
 class VentanaCalculadora(ctk.CTk):
-    def __init__(self, controlador):
+    def __init__(self, controlador, historial=None):
         super().__init__()
         self.controlador = controlador
+        self.historial = historial if historial is not None else getattr(
+            controlador, "historial", None
+        )
 
         ctk.set_appearance_mode("dark")
         self.title("Mi Calculadora")
@@ -178,4 +181,33 @@ class VentanaCalculadora(ctk.CTk):
         self.etiqueta_resultado.configure(text=estado["pantalla"])
 
     def _abrir_historial(self):
-        pass
+        ventana = ctk.CTkToplevel(self)
+        ventana.title("Historial")
+        ventana.geometry("360x260")
+        ventana.resizable(False, False)
+        ventana.configure(fg_color=COLORES["fondo"])
+
+        if self.historial is None:
+            textos = []
+        else:
+            textos = self.historial.ultimos(10)
+
+        if not textos:
+            etiquetas = ["Aún no hay cálculos"]
+        else:
+            etiquetas = []
+            for calculo in textos:
+                etiquetas.append(
+                    f"{calculo.expresion} = {calculo.resultado} "
+                    f"  ({calculo.fecha})"
+                )
+
+        for indice, texto in enumerate(etiquetas):
+            etiqueta = ctk.CTkLabel(
+                ventana,
+                text=texto,
+                text_color=COLORES["texto"],
+                font=ctk.CTkFont(size=14),
+                anchor="w",
+            )
+            etiqueta.pack(fill="x", padx=16, pady=(12 if indice == 0 else 4, 4))

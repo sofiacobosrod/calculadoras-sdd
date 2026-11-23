@@ -9,8 +9,9 @@ class ControladorCalculadora:
         "/": "÷",
     }
 
-    def __init__(self, calcular):
+    def __init__(self, calcular, historial=None):
         self.calcular = calcular
+        self.historial = historial
         self.pantalla = "0"
         self.expresion = ""
         self.acumulado = None
@@ -122,6 +123,11 @@ class ControladorCalculadora:
             self.expresion = f"{self.expresion} {self.pantalla}"
         resultado = self._calcular_pendiente()
         if resultado is not None:
+            if self.historial is not None:
+                self.historial.registrar(
+                    self.expresion,
+                    self.pantalla,
+                )
             self.operador_pendiente = None
             self.nuevo_numero = True
 
