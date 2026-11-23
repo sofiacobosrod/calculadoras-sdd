@@ -102,6 +102,16 @@ class VentanaCalculadora(ctk.CTk):
         )
         self.etiqueta_resultado.pack(fill="both", expand=True, padx=18, pady=(0, 8))
 
+        self.etiqueta_letras = ctk.CTkLabel(
+            pantalla,
+            text="",
+            text_color=COLORES["texto_secundario"],
+            font=ctk.CTkFont(size=13),
+            anchor="e",
+            wraplength=300,
+        )
+        self.etiqueta_letras.pack(fill="x", padx=18, pady=(0, 10))
+
     def _crear_botones(self):
         for indice_fila, fila in enumerate(FILAS_BOTONES):
             columna_inicio = 0
@@ -179,6 +189,7 @@ class VentanaCalculadora(ctk.CTk):
     def _actualizar_pantalla(self, estado):
         self.etiqueta_expresion.configure(text=estado["expresion"])
         self.etiqueta_resultado.configure(text=estado["pantalla"])
+        self.etiqueta_letras.configure(text=estado.get("letras", ""))
 
     def _abrir_historial(self):
         ventana = ctk.CTkToplevel(self)

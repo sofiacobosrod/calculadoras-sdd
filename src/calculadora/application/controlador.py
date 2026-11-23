@@ -9,9 +9,10 @@ class ControladorCalculadora:
         "/": "÷",
     }
 
-    def __init__(self, calcular, historial=None):
+    def __init__(self, calcular, historial=None, convertir_letras=None):
         self.calcular = calcular
         self.historial = historial
+        self.convertir_letras = convertir_letras
         self.pantalla = "0"
         self.expresion = ""
         self.acumulado = None
@@ -37,7 +38,15 @@ class ControladorCalculadora:
         else:
             raise ValueError("Tecla no valida")
 
-        return {"expresion": self.expresion, "pantalla": self.pantalla}
+        letras = ""
+        if self.pantalla != "Error" and self.convertir_letras is not None:
+            letras = self.convertir_letras.ejecutar(self.pantalla)
+
+        return {
+            "expresion": self.expresion,
+            "pantalla": self.pantalla,
+            "letras": letras,
+        }
 
     def _limpiar(self):
         self.pantalla = "0"

@@ -3,6 +3,8 @@ import unittest
 from src.calculadora.application.calcular import CalcularUseCase
 from src.calculadora.application.controlador import ControladorCalculadora
 from src.calculadora.application.puertos import RepositorioHistorial
+from src.calculadora.application.convertir_letras import ConvertirALetrasUseCase
+from src.calculadora.domain.numero_a_letras import ConversorNumeroALetras
 
 
 class HistorialPrueba(RepositorioHistorial):
@@ -95,3 +97,28 @@ class TestControladorCalculadora(unittest.TestCase):
             controlador.presionar(tecla)
 
         self.assertEqual(historial.registros, [])
+
+    def test_estado_incluye_letras(self):
+        convertir = ConvertirALetrasUseCase(ConversorNumeroALetras())
+        controlador = ControladorCalculadora(
+            CalcularUseCase(),
+            convertir_letras=convertir,
+        )
+        estado = None
+        for tecla in ["1", "5"]:
+            estado = controlador.presionar(tecla)
+
+        self.assertIn("letras", estado)
+        self.assertEqual(estado["letras"], "quince con 00/100")
+
+    def test_error_deja_letras_vacias(self):
+        convertir = ConvertirALetrasUseCase(ConversorNumeroALetras())
+        controlador = ControladorCalculadora(
+            CalcularUseCase(),
+            convertir_letras=convertir,
+        )
+        estado = None
+        for tecla in ["8", "/", "0", "="]:
+            estado = controlador.presionar(tecla)
+
+        self.assertEqual(estado["letras"], "")

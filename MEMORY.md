@@ -32,3 +32,9 @@ Bitácora de decisiones y avances. La entrada más reciente va al final.
 - Se añadió `Calculo` en domain, el puerto `RepositorioHistorial` y `HistorialUseCase` en application, y `RepositorioHistorialJson` en infrastructure.
 - El controlador registra solo resultados válidos de "=" y la ventana muestra los últimos 10 cálculos o el estado vacío.
 - Las pruebas ejecutadas con `python -m unittest discover -s tests -t . -v` pasaron: 27 pruebas correctas.
+
+## 2026-11-23
+- Se implementó la función de número a letras de la spec 006 con lógica pura en domain.
+- Se añadieron `ConversorNumeroALetras`, `ConvertirALetrasUseCase`, la clave `letras` en el estado del controlador y la tercera línea en la pantalla.
+- Los criterios de aceptación incluyen rangos, negativos, decimales redondeados y los formatos completos solicitados.
+- Las pruebas ejecutadas con `python -m unittest discover -s tests -t . -v` pasaron: 44 pruebas correctas.
