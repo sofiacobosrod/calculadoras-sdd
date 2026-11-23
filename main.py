@@ -1,3 +1,10 @@
-# Punto de entrada de la calculadora.
-# Aquí se conectan las capas (domain, application, infrastructure).
-# Se completa en la spec 004 (interfaz gráfica).
+from src.calculadora.application.calcular import CalcularUseCase
+from src.calculadora.application.controlador import ControladorCalculadora
+from src.calculadora.infrastructure.ventana import VentanaCalculadora
+
+
+if __name__ == "__main__":
+    calcular = CalcularUseCase()
+    controlador = ControladorCalculadora(calcular)
+    ventana = VentanaCalculadora(controlador)
+    ventana.mainloop()

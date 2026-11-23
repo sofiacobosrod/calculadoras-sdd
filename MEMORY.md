@@ -20,3 +20,9 @@ Bitácora de decisiones y avances. La entrada más reciente va al final.
 - Se implementó el núcleo Python de la spec 003 con Clean Architecture y POO.
 - Se añadieron `DivisionPorCeroError`, operaciones abstractas e implementación, `CalcularUseCase`, `ControladorCalculadora` y pruebas espejo en domain/application.
 - Las pruebas ejecutadas con `python -m unittest discover -s tests -t . -v` pasaron: 15 pruebas correctas.
+
+## 2026-11-23
+- Se implementó la interfaz gráfica de la spec 004 con CustomTkinter sin modificar domain ni application.
+- Se añadieron la configuración visual de colores y botones, la ventana `VentanaCalculadora`, la conexión en `main.py` y las pruebas de infraestructura.
+- El diseño usa tema oscuro, cuadrícula de 12 columnas, botones redondeados y colores acordes a la imagen de referencia.
+- Las pruebas ejecutadas con `python -m unittest discover -s tests -t . -v` pasaron: 19 pruebas correctas.
