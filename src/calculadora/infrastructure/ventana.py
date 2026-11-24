@@ -16,12 +16,11 @@ class VentanaCalculadora(ctk.CTk):
 
         ctk.set_appearance_mode("dark")
         self.title("Mi Calculadora")
-        self.geometry("380x620")
+        self.geometry("400x620")
         self.resizable(False, False)
         self.configure(fg_color=COLORES["fondo"])
 
-        for columna in range(12):
-            self.grid_columnconfigure(columna, weight=1)
+        self.grid_columnconfigure(0, weight=1)
 
         self._crear_encabezado()
         self._crear_pantalla()
@@ -37,7 +36,7 @@ class VentanaCalculadora(ctk.CTk):
             fg_color=COLORES["fondo"],
             corner_radius=0,
         )
-        encabezado.grid(row=0, column=0, columnspan=12, sticky="nsew", padx=20, pady=(12, 8))
+        encabezado.grid(row=0, column=0, sticky="ew", padx=18, pady=(12, 8))
 
         icono = ctk.CTkLabel(
             encabezado,
@@ -78,7 +77,6 @@ class VentanaCalculadora(ctk.CTk):
         pantalla.grid(
             row=1,
             column=0,
-            columnspan=12,
             sticky="nsew",
             padx=18,
             pady=(4, 12),
@@ -113,10 +111,14 @@ class VentanaCalculadora(ctk.CTk):
         self.etiqueta_letras.pack(fill="x", padx=18, pady=(0, 10))
 
     def _crear_botones(self):
+        contenedor = ctk.CTkFrame(self, fg_color=COLORES["fondo"])
+        contenedor.grid(row=2, column=0, sticky="nsew", padx=13, pady=0)
+        for columna in range(12):
+            contenedor.grid_columnconfigure(columna, weight=1)
+
         for indice_fila, fila in enumerate(FILAS_BOTONES):
             columna_inicio = 0
-            fila_numero = indice_fila + 2
-            self.grid_rowconfigure(fila_numero, weight=1)
+            contenedor.grid_rowconfigure(indice_fila, weight=1)
 
             for boton in fila:
                 tipo = boton["tipo"]
@@ -125,26 +127,29 @@ class VentanaCalculadora(ctk.CTk):
 
                 if tipo == "historial":
                     comando = self._abrir_historial
-                    texto_boton = "◷  " + texto
+                    texto_boton = "◷ " + texto
+                    fuente = ctk.CTkFont(size=18, weight="bold")
                 elif tipo == "igual":
                     comando = lambda tecla=boton["tecla"]: self._al_presionar(tecla)
                     texto_boton = texto
+                    fuente = ctk.CTkFont(size=24, weight="bold")
                 else:
                     comando = lambda tecla=boton["tecla"]: self._al_presionar(tecla)
                     texto_boton = texto
+                    fuente = ctk.CTkFont(size=24, weight="bold")
 
                 widget = ctk.CTkButton(
-                    self,
+                    contenedor,
                     text=texto_boton,
                     command=comando,
                     fg_color=color,
                     hover_color=self._color_hover(tipo),
                     text_color=COLORES["texto"],
-                    font=ctk.CTkFont(size=24, weight="bold"),
+                    font=fuente,
                     corner_radius=14,
                 )
                 widget.grid(
-                    row=fila_numero,
+                    row=indice_fila,
                     column=columna_inicio,
                     columnspan=boton["columnas"],
                     sticky="nsew",
@@ -160,7 +165,7 @@ class VentanaCalculadora(ctk.CTk):
             text_color=COLORES["texto_secundario"],
             font=ctk.CTkFont(size=14),
         )
-        pie.grid(row=7, column=0, columnspan=12, sticky="nsew", pady=(8, 10))
+        pie.grid(row=3, column=0, sticky="ew", pady=(8, 10))
 
     def _color_boton(self, tipo):
         colores = {

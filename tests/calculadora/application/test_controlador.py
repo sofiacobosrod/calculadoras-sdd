@@ -122,3 +122,27 @@ class TestControladorCalculadora(unittest.TestCase):
             estado = controlador.presionar(tecla)
 
         self.assertEqual(estado["letras"], "")
+
+    def test_igual_una_sola_vez_56_por_9(self):
+        estado = self.probar_teclas(["5", "6", "*", "9", "="])
+        self.assertEqual(estado["pantalla"], "504")
+
+    def test_igual_una_sola_vez_5_por_5(self):
+        estado = self.probar_teclas(["5", "*", "5", "="])
+        self.assertEqual(estado["pantalla"], "25")
+
+    def test_negativo_por_positivo(self):
+        estado = self.probar_teclas(["5", "±", "*", "3", "="])
+        self.assertEqual(estado["pantalla"], "-15")
+
+    def test_positivo_por_negativo(self):
+        estado = self.probar_teclas(["3", "*", "5", "±", "="])
+        self.assertEqual(estado["pantalla"], "-15")
+
+    def test_resta_con_resultado_negativo(self):
+        estado = self.probar_teclas(["2", "-", "5", "="])
+        self.assertEqual(estado["pantalla"], "-3")
+
+    def test_cadena_con_resultado_negativo(self):
+        estado = self.probar_teclas(["2", "-", "5", "=", "*", "2", "="])
+        self.assertEqual(estado["pantalla"], "-6")

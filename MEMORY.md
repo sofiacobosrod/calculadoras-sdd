@@ -38,3 +38,11 @@ Bitácora de decisiones y avances. La entrada más reciente va al final.
 - Se añadieron `ConversorNumeroALetras`, `ConvertirALetrasUseCase`, la clave `letras` en el estado del controlador y la tercera línea en la pantalla.
 - Los criterios de aceptación incluyen rangos, negativos, decimales redondeados y los formatos completos solicitados.
 - Las pruebas ejecutadas con `python -m unittest discover -s tests -t . -v` pasaron: 44 pruebas correctas.
+
+## 2026-11-23
+- Se corrigieron bugs de las specs 003 y 005 y se ajustó el diseño de la ventana.
+- Bug 1 (reporte de doble aplicación de "="): se agregaron pruebas de regresión para los nuevos criterios (`56 × 9 =`, `5 × 5 =`, negativos y encadenamiento) y se verificó que el controlador aplica "=" una sola vez y guarda un solo registro.
+- Bug 2 (serialización JSON): `RepositorioHistorialJson.guardar` ahora convierte todos los cálculos existentes a diccionarios con `a_diccionario()` antes de agregar el nuevo y escribir el archivo, evitando `TypeError: Object of type Calculo is not JSON serializable`.
+- Se agregó prueba de integración con archivo temporal usando `RepositorioHistorialJson`, `HistorialUseCase` y `ControladorCalculadora`.
+- Diseño: se ajustó la ventana (márgenes consistentes, contenedor de botones y fuente del botón "Historial") para que el texto no se corte y la columna derecha no se salga.
+- Las pruebas ejecutadas con `python -m unittest discover -s tests -t . -v` pasaron: 53 pruebas correctas.

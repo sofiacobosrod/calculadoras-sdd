@@ -10,9 +10,10 @@ class RepositorioHistorialJson(RepositorioHistorial):
 
     def guardar(self, calculo):
         calculos = self.obtener_todos()
-        calculos.append(calculo.a_diccionario())
+        datos = [item.a_diccionario() for item in calculos]
+        datos.append(calculo.a_diccionario())
         with open(self.ruta, "w", encoding="utf-8") as archivo:
-            json.dump(calculos, archivo, ensure_ascii=False)
+            json.dump(datos, archivo, ensure_ascii=False)
 
     def obtener_todos(self):
         try:
