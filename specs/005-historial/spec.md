@@ -18,3 +18,5 @@ Guardar cada cálculo terminado y poder consultarlo con el botón "Historial", a
 - Después de calcular 2 + 3 = y abrir Historial, aparece "2 + 3 = 5".
 - Después de 8 ÷ 0 =, el historial no cambia.
 - Al cerrar y abrir la app, el historial sigue ahí.
+- Al presionar "=" en la ventana, la app NO se cae y el cálculo se guarda en historial.json como diccionario.
+- Al presionar "=" una vez, se guarda UN solo registro en el historial.

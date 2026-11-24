@@ -32,3 +32,9 @@ La interfaz gráfica (spec 004) enviará cada tecla que presione el usuario y mo
 - Teclas 5 0 % → pantalla "0.5"
 - Teclas 4 × 2 . 5 = → pantalla "10"
 - Tecla C → pantalla "0" y expresion vacía
+- Teclas 5 6 × 9 = → pantalla "504" (el "=" se aplica UNA sola vez)
+- Teclas 5 × 5 = → pantalla "25"
+- Teclas 5 ± × 3 = → pantalla "-15"
+- Teclas 3 × 5 ± = → pantalla "-15"
+- Teclas 2 − 5 = → pantalla "-3"
+- Teclas 2 − 5 = × 2 = → pantalla "-6"
