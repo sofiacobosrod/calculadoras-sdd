@@ -1,18 +1,48 @@
 # Calculadoras SDD
 
-Proyecto de práctica de **Spec Driven Development (SDD)** con dos calculadoras:
+Proyecto de práctica de **Spec Driven Development (SDD)** con calculadoras en Python y Java.
 
-| Calculadora | Lenguaje | Herramienta de IA | Carpeta |
+![Mi Calculadora](docs/captura-calculadora.png)
+
+## Versiones
+
+| Calculadora | Lenguaje | Herramienta de IA | Ubicación |
 |---|---|---|---|
-| 1 | Python | GitHub Copilot | `calculadora-python/` |
-| 2 | Java | OpenCode | `calculadora-java/` |
+| v2 – Clean Architecture con interfaz gráfica | Python | GitHub Copilot | `src/`, `tests/`, `main.py` |
+| v1 – Consola | Python | GitHub Copilot | `calculadora-python/` |
+| Consola | Java | OpenCode | `calculadora-java/` |
 
-## Estructura
-- `.specify/memory/constitution.md` → reglas del proyecto.
-- `.specify/templates/` → plantillas para specs, planes y tareas.
-- `AGENTS.md` → instrucciones para los agentes de IA.
-- `MEMORY.md` → bitácora de decisiones.
-- `specs/` → spec, plan y tareas de cada calculadora.
+## Función única: número a letras
+Debajo del resultado se muestra el número escrito en palabras con formato de factura.
+Ejemplo: `385` → *trescientos ochenta y cinco con 00/100*.
+
+El "00/100" representa los centavos, como en facturas y cheques, para que el valor no se pueda alterar.
+
+## Arquitectura (Clean Architecture)
+
+    src/calculadora/
+        domain/          -> reglas puras: operaciones, cálculo, número a letras
+        application/     -> casos de uso, controlador y puertos
+        infrastructure/  -> ventana (CustomTkinter) y repositorio JSON
+    tests/calculadora/   -> pruebas espejo de cada capa
+    main.py              -> punto de entrada; conecta las capas
+
+Regla de dependencia: domain no conoce a nadie; application solo conoce domain; infrastructure conoce a ambos.
+
+## Cómo ejecutar
+    python -m pip install -r requirements.txt
+    python main.py
+
+## Cómo probar
+    python -m unittest discover -s tests -t . -v
 
 ## Flujo SDD
-1. Spec (qué) → 2. Plan (cómo) → 3. Tareas → 4. La IA implementa → 5. Revisión y Pull Request.
+Cada funcionalidad tiene su spec en `specs/`:
+- 001 Calculadora Python (consola)
+- 002 Calculadora Java (consola)
+- 003 Núcleo con Clean Architecture
+- 004 Interfaz gráfica
+- 005 Historial
+- 006 Número a letras
+
+Reglas del proyecto: `.specify/memory/constitution.md` · Instrucciones para la IA: `AGENTS.md` · Skills: `.github/skills/` · Investigación: `docs/investigacion-clean-architecture.md`
