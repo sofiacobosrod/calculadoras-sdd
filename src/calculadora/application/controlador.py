@@ -9,10 +9,12 @@ class ControladorCalculadora:
         "/": "÷",
     }
 
-    def __init__(self, calcular, historial=None, convertir_letras=None):
+    # Este es el parámetro opcional convertir_romano
+    def __init__(self, calcular, historial=None, convertir_letras=None, convertir_romano=None):
         self.calcular = calcular
         self.historial = historial
         self.convertir_letras = convertir_letras
+        self.convertir_romano = convertir_romano  # NUEVO
         self.pantalla = "0"
         self.expresion = ""
         self.acumulado = None
@@ -42,10 +44,16 @@ class ControladorCalculadora:
         if self.pantalla != "Error" and self.convertir_letras is not None:
             letras = self.convertir_letras.ejecutar(self.pantalla)
 
+        # Parte donde si tiene el mismo patrón que letras, pero para el número romano
+        romano = ""
+        if self.pantalla != "Error" and self.convertir_romano is not None:
+            romano = self.convertir_romano.ejecutar(self.pantalla)
+
         return {
             "expresion": self.expresion,
             "pantalla": self.pantalla,
             "letras": letras,
+            "romano": romano,  # NUEVO
         }
 
     def _limpiar(self):
@@ -104,7 +112,6 @@ class ControladorCalculadora:
                     f"{self.SIMBOLOS[operador]}"
                 )
             else:
-                simbolos = list(self.SIMBOLOS)
                 ultimo = self.expresion[-1:]
                 if ultimo in ("+", "−", "×", "÷"):
                     self.expresion = (

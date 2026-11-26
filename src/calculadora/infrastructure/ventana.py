@@ -16,7 +16,7 @@ class VentanaCalculadora(ctk.CTk):
 
         ctk.set_appearance_mode("dark")
         self.title("Mi Calculadora")
-        self.geometry("400x620")
+        self.geometry("400x650")  # NUEVO: más alta para la línea del romano
         self.resizable(False, False)
         self.configure(fg_color=COLORES["fondo"])
 
@@ -108,7 +108,17 @@ class VentanaCalculadora(ctk.CTk):
             anchor="e",
             wraplength=300,
         )
-        self.etiqueta_letras.pack(fill="x", padx=18, pady=(0, 10))
+        self.etiqueta_letras.pack(fill="x", padx=18, pady=(0, 2))  # NUEVO: menos espacio abajo
+
+        # La etiqueta para el número romano, debajo de las letras
+        self.etiqueta_romano = ctk.CTkLabel(
+            pantalla,
+            text="",
+            text_color=COLORES["texto_secundario"],
+            font=ctk.CTkFont(size=13),
+            anchor="e",
+        )
+        self.etiqueta_romano.pack(fill="x", padx=18, pady=(0, 10))
 
     def _crear_botones(self):
         contenedor = ctk.CTkFrame(self, fg_color=COLORES["fondo"])
@@ -195,6 +205,7 @@ class VentanaCalculadora(ctk.CTk):
         self.etiqueta_expresion.configure(text=estado["expresion"])
         self.etiqueta_resultado.configure(text=estado["pantalla"])
         self.etiqueta_letras.configure(text=estado.get("letras", ""))
+        self.etiqueta_romano.configure(text=estado.get("romano", ""))  # NUEVO
 
     def _abrir_historial(self):
         ventana = ctk.CTkToplevel(self)
