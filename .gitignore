@@ -18,7 +18,3 @@ venv/
 # --- Archivos del sistema operativo ---
 Thumbs.db
 .DS_Store
-
-
-# --- Datos generados por la calculadora ---
-historial.json
